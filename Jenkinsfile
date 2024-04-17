@@ -11,7 +11,7 @@ pipeline{
 	    stage('gitclone') {
 
 			steps {
-				git 'https://github.com/aliayman225/jenkins.git'
+				git 'https://github.com/aliayman225/jenkins'
 			}
 		}
 
