@@ -15,9 +15,7 @@ pipeline {
         stage('Login') {
             steps {
                 script {
-                    docker.withRegistry('
-https://index.docker.io/v1/'
-, 'docker-hub-credentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         docker.login(username: DOCKERHUB_CREDENTIALS_USR, password: DOCKERHUB_CREDENTIALS_PSW)
                     }
                 }
@@ -26,9 +24,7 @@ https://index.docker.io/v1/'
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('
-https://index.docker.io/v1/'
-, 'docker-hub-credentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         docker.image('aliayman225/demo:latest').push()
                     }
                 }
