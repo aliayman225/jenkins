@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     // Use the 'tool' directive to select the default Docker installation
-                    def dockerHome = tool 'docker'
+                    def dockerHome = tool 'Docker'
                     bat "${dockerHome}\\docker build -t aliayman225/demo:latest ."
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
         stage('Login') {
             steps {
                 script {
-                    def dockerHome = tool 'docker'
+                    def dockerHome = tool 'Docker'
                     // Use the 'withCredentials' block to securely handle credentials
                     withCredentials([usernamePassword(credentialsId: 'YOUR_CREDENTIALS_ID', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
                         bat "echo %DOCKERHUB_CREDENTIALS_PSW% | ${dockerHome}\\docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin"
@@ -31,7 +31,7 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                    def dockerHome = tool 'docker'
+                    def dockerHome = tool 'Docker'
                     bat "${dockerHome}\\docker push aliayman225/demo:latest"
                 }
             }
