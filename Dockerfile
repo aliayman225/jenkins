@@ -1,13 +1,5 @@
-FROM python:3.9-slim
+FROM nginx
 
-WORKDIR /app
+COPY script.sh /script.sh
 
-COPY . /app
-
-RUN pip install --no-cache-dir -r requirements.txt
-
-EXPOSE 5000
-
-ENV NAME World
-
-CMD ["python", "app.py"]
+CMD ["echo", "Hello"]
