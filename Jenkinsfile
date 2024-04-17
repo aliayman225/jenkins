@@ -8,12 +8,6 @@ pipeline{
 
 	stages {
 	    
-	    stage('gitclone') {
-
-			steps {
-				git 'https://github.com/aliayman225/jenkins.git'
-			}
-		}
 
 		stage('Build') {
 
