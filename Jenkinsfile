@@ -18,7 +18,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t aliayman225/SCM_demo:latest .'
+				sh 'docker build -t aliayman225/demo:latest .'
 			}
 		}
 
