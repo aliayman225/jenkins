@@ -5,11 +5,6 @@ pipeline{
     }
     stages {
  
-        stage('gitclone') {
-            steps {
-                git 'https://github.com/aliayman225/jenkins.git'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'docker build -t aliayman225/demo:latest .'
