@@ -12,18 +12,17 @@ pipeline{
         }
         stage('Build') {
             steps {
-                sh 'docker build -t yasser744/demo:latest .'
+                sh 'docker build -t aliayman225/demo:latest .'
             }
         }
         stage('Login') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u 
-                $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
         stage('Push') {
             steps {
-                sh 'docker push yasser744/demo:latest'
+                sh 'docker push aliayman225/demo:latest'
             }
         }
     }
