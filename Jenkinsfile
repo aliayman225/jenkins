@@ -1,49 +1,35 @@
-pipeline {
+pipeline{
     agent any
-
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('b0b85ebe-581c-43ea-b532-3427df4be1a2')
+        DOCKERHUB_CREDENTIALS=credentials('dockerhubaccess')
     }
-
     stages {
+ 
+        stage('gitclone') {
+            steps {
+                git 'https://github.com/aliayman225/jenkins.git'
+            }
+        }
         stage('Build') {
             steps {
-                script {
-                    // Use the 'tool' directive to select the default Docker installation
-                    def dockerHome = tool 'Docker'
-                    bat "${dockerHome}\\docker build -t aliayman225/demo:latest ."
-                }
+                sh 'docker build -t yasser744/demo:latest .'
             }
         }
-
         stage('Login') {
             steps {
-                script {
-                    def dockerHome = tool 'Docker'
-                    // Use the 'withCredentials' block to securely handle credentials
-                    withCredentials([usernamePassword(credentialsId: 'YOUR_CREDENTIALS_ID', passwordVariable: 'DOCKERHUB_CREDENTIALS_PSW', usernameVariable: 'DOCKERHUB_CREDENTIALS_USR')]) {
-                        bat "echo %DOCKERHUB_CREDENTIALS_PSW% | ${dockerHome}\\docker login -u %DOCKERHUB_CREDENTIALS_USR% --password-stdin"
-                    }
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u 
+                $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-
         stage('Push') {
             steps {
-                script {
-                    def dockerHome = tool 'Docker'
-                    bat "${dockerHome}\\docker push aliayman225/demo:latest"
-                }
+                sh 'docker push yasser744/demo:latest'
             }
         }
     }
-
     post {
         always {
-            script {
-                def dockerHome = tool 'docker'
-                bat "${dockerHome}\\docker logout"
-            }
+            sh 'docker logout'
         }
     }
 }
